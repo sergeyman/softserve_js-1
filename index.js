@@ -29,15 +29,22 @@ Customer.prototype.constructor = User;
 
 // ...
 
-var cust = new Customer(0, 'Customer', 'order');
-var cust1 = new Customer1(1, 'Customer1', 'order1');
+var cust = new Customer(0, 'Customer', 'phone', 'addr', orders = new Array(1, 2, 3));
+var cust1 = new Customer1(1, 'Customer1', 'phone1', 'addr1', orders1 = new Array(10, 20, 30));
 //var cust2 = new Customer2(2, 'Customer2', 'order2');
 
 cust.setName('CustomerChangedName');
-cust1.setName('Customer1ChangedName');
+//cust1.setName('Customer1ChangedName');
+
+console.log(cust);
+console.log(cust.getName());
+
+
+
 
 /*
 https://app.diagrams.net/?src=about#G1HXTO8hko1Hycd8y4ZlBMERG0oyHhFunf
+https://github.com/sergeyman/softserve_js-1
 
 
 Object.create() - не создает новый об., не наследует, - копирует св-ва
@@ -95,4 +102,23 @@ https://developer.mozilla.org/ru/docs/Web/JavaScript/Inheritance_and_the_prototy
 
 Типы определяются в .prototype
 Для наследования используется Object.create()
+
+var o = {
+  a: 2,
+  m: function(){
+    return this.a + 1;
+  }
+};
+
+console.log(o.m()); // 3
+// в этом случае при вызове 'o.m' this указывает на 'o'
+
+var p = Object.create(o);
+// 'p' - наследник 'o'
+
+p.a = 12; // создаст собственное свойство 'a' объекта 'p'
+console.log(p.m()); // 13
+// при вызове 'p.m' this указывает на 'p'.
+// т.е. когда 'p' наследует функцию 'm' объекта 'o',
+// this.a означает 'p.a', собственное свойство 'a' объекта 'p'
 */
