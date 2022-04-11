@@ -1,36 +1,7 @@
-function User(id, name, phone, address) {           // Constructor
-    this._id = id;
-    this._name = name;
-    this._phone = phone;
-    this._address = address;
-}
 
-User.prototype.getName = function() {               // adding (extending) function (method) to User.prototype
-    return this._name;
-}
+var cust = new Customer(0, 'Customer', 'phone', 'addr', orders = new Array(1, 2, 3));           //# Empty Array (?)
 
-User.prototype.setName = function(name) {           // adding function (method) to User.prototype
-    console.log(this);
-    this._name = name;
-}
-
-var Customer = function(id, name, phone, address, orders) {
-    User.call(this, id, name, phone, address, orders); 
-    this._orders = orders;
-}
-
-var Customer1 = function(id, name, phone, address, orders) {
-    this.prototype = User.apply(this, arguments); 
-    this._orders = orders;
-}
-
-Customer.prototype = new User;
-Customer.prototype.constructor = User;
-
-// ...
-
-var cust = new Customer(0, 'Customer', 'phone', 'addr', orders = new Array(1, 2, 3));
-var cust1 = new Customer1(1, 'Customer1', 'phone1', 'addr1', orders1 = new Array(10, 20, 30));
+//var cust1 = new Customer1(1, 'Customer1', 'phone1', 'addr1', orders1 = new Array(10, 20, 30));
 //var cust2 = new Customer2(2, 'Customer2', 'order2');
 
 cust.setName('CustomerChangedName');
@@ -39,8 +10,33 @@ cust.setName('CustomerChangedName');
 console.log(cust);
 console.log(cust.getName());
 
+// cust.addOrder(new Array(1, 1, 5));
+cust.addOrder([1, 3, 5]);
+console.log(cust.getOrderById(3));      // # -1 (?)  >>>  this._orders = order.slice(); // copy array
+
+// Deleting orders
+console.log("Orders: " + cust.getOrders());
+cust.deleteOrderById(1);                // 3 - not working (?)
+console.log("Orders: " + cust.getOrders());
 
 
+
+
+
+// ***
+var Customer10 = function(id, name, phone, address, orders) {
+    User.call(this, id, name, phone, address, orders); 
+    this._orders = orders;
+}
+
+Customer10.prototype = new User();
+Customer10.prototype.constructor = User;
+
+// Customer10.prototype.methodSub = fucntion methodSub() {
+//     return "methodSub";
+// };
+
+// ***
 
 /*
 https://app.diagrams.net/?src=about#G1HXTO8hko1Hycd8y4ZlBMERG0oyHhFunf
