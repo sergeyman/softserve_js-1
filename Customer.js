@@ -1,23 +1,3 @@
-'use strict';
-
-function User(id, name, phone, address) {           // Constructor
-    this._id = id;
-    this._name = name;
-    this._phone = phone;
-    this._address = address;
-}
-
-User.prototype.getName = function() {               // adding (extending) function (method) to User.prototype
-    return this._name;
-}
-
-User.prototype.setName = function(name) {           // adding function (method) to User.prototype
-    //console.log(this);
-    this._name = name;
-}
-
-
-
 var Customer = function(id, name, phone, address, orders) {
 //    this = {};
     User.call(this, id, name, phone, address); 
@@ -25,7 +5,7 @@ var Customer = function(id, name, phone, address, orders) {
     
     this._orders = [];
 
-    return this;
+    //return this;
 }
 
 // var Customer1 = function(id, name, phone, address, orders) {
@@ -52,9 +32,9 @@ Customer.prototype.setName = function(name) {           // adding function (meth
 //     return this._orders;
 // }
 
-Customer.prototype.addOrder = function(order) {               // adding (extending) function (method) to User.prototype
-    // this._orders.push(order);
-    this._orders = order.slice();                             // copy array (!)  
+Customer.prototype.addOrder = function(order) {               
+    this._orders.push(order);
+    //this._orders = order.slice();                             // copy array (!)  
 }
 
 Customer.prototype.getOrders = function(order) {  
@@ -78,12 +58,18 @@ Customer.prototype.getOrderById = function(id) {
 Customer.prototype.deleteOrderById = function(id) {
     // this._orders.splice(id, 1);
 
-    for(var i=0; i<this._orders.length; i++) {
-        if(this._orders[i] == id) {
-            this._orders.splice(id, 1)
-            break;
-        }
-    }
+    // works(?)
+    // for(var i=0; i<this._orders.length; i++) {
+    //     if(this._orders[i] == id) {
+    //         this._orders.splice(id, 1)
+    //         break;
+    //     }
+    // }
+
+    this._orders = this._orders.filter(function(order) {
+        return order.getOrderId() !== id;                           //# Uncaught TypeError: order.getOrderId is not a function
+    });
+
 
     // var newOrders = this._orders.filter(function(value, index, arr) {
     //     return value = id;

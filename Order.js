@@ -4,6 +4,7 @@ function Order(id) {           // Constructor
     this.__id = id;
     this.__time = Date.now();
     this.__products = [];
+    //this.__products = products;
 }
 
 Order.prototype.getOrderId = function() {            
@@ -22,6 +23,6 @@ Order.prototype.getTotalPrice = function() {
     //return this.__id;
 }
 
-Order.prototype.addProcduct(prod) = function() {            
-   //
+Order.prototype.addProduct = function(prod) {            
+   this.__products.push(prod) 
 }

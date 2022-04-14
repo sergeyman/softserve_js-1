@@ -1,23 +1,92 @@
+// 1) Adding Categories
+var cat1 = new Category(1, 'Category1');
+var cat2 = new Category(2, 'Category2');
+var cat3 = new Category(3, 'Category3');
 
-var cust = new Customer(0, 'Customer', 'phone', 'addr', orders = new Array(1, 2, 3));           //# Empty Array (?)
+console.log('Category2 name: ' + cat2.getName());
+
+categories1 = new Array(cat1, cat2);
+
+
+// 2) Adding Products
+// var prod1 = new Product(1, 'Product1', 100, new Array(1, 2));
+var prod1 = new Product(1, 'Product1', 100, categories1);
+var prod2 = new Product(2, 'Product2', 100, 1);
+var prod3 = new Product(3, 'Product3', 100, 1);
+
+console.log('Product1 price: ', prod1.getPrice());
+prod1.setPrice(200);                                                  // change price
+console.log('Product1 price: ', prod1.getPrice());
+console.log('Product1 category names: ', prod1.getCategoryNames());   // ? []
+
+
+// 3) Adding Order
+var order1 = new Order(1);
+var order2 = new Order(2);
+console.log('Order1 time: ' + order1.getOrderTimeById(1));
+
+order1.addProduct(prod1);                                             // adding order to product
+order2.addProduct(prod2); 
+order2.addProduct(prod3);                                           
+
+var ordersForCustomer1 = new Array(order1, order2);
+
+// 4) Adding Customers
+// var cust = new Customer(0, 'Customer', 'phone', 'addr', orders = new Array(1, 2, 3));    //# Empty Array (?)
+var cust1 = new Customer(1, 'Customer1', 'phone1', 'addr1', ordersForCustomer1);           
 
 //var cust1 = new Customer1(1, 'Customer1', 'phone1', 'addr1', orders1 = new Array(10, 20, 30));
 //var cust2 = new Customer2(2, 'Customer2', 'order2');
 
-cust.setName('CustomerChangedName');
+cust1.setName('Customer1ChangedName');                                 // change Customer1 name
 //cust1.setName('Customer1ChangedName');
 
-console.log(cust);
-console.log(cust.getName());
+console.log(cust1);
+console.log(cust1.getName());
 
+cust1.addProductToOrder(prod1, order1.getOrderId());
+
+console.log('Customer1 orders: ' + cust1.getOrders());
+
+
+
+
+
+
+
+
+// 4.1) Adding order
+var ord1 = new Order(10);
+cust1.addOrder(ord1);
+cust1.getOrders();
+cust1.getOrderById(10);
+
+
+
+// 4.2) Adding orders
 // cust.addOrder(new Array(1, 1, 5));
-cust.addOrder([1, 3, 5]);
-console.log(cust.getOrderById(3));      // # -1 (?)  >>>  this._orders = order.slice(); // copy array
+
+var orders = [new Order(10), new Order(20), new Order(30)];
+//cust.addOrder(orders);
+
+cust1.addOrder([1, 3, 5]);
+console.log(cust1.getOrderById(3));      // # -1 (?)  >>>  this._orders = order.slice(); // copy array
 
 // Deleting orders
-console.log("Orders: " + cust.getOrders());
-cust.deleteOrderById(1);                // 3 - not working (?)
-console.log("Orders: " + cust.getOrders());
+console.log("\nOrders before deleting: " + cust1.getOrders());
+//cust.deleteOrderById(1);                // 3 - not working (?)
+console.log("Orders after deleting: " + cust1.getOrders());
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -41,7 +110,11 @@ Customer10.prototype.constructor = User;
 /*
 https://app.diagrams.net/?src=about#G1HXTO8hko1Hycd8y4ZlBMERG0oyHhFunf
 https://github.com/sergeyman/softserve_js-1
+https://www.w3schools.com/js/js_es5.asp#mark_array_foreach
 
+animals.forEach(function(animal, index, array) {
+  console.log(animal);
+});
 
 Object.create() - не создает новый об., не наследует, - копирует св-ва
 
