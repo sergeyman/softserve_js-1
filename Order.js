@@ -46,15 +46,19 @@ Order.prototype.addProduct = function(prod) {
 // amount (not in UML)
 Order.prototype.getProductsAmount = function() {
     return this.__products.length;
-}
+};
 
 // delete (not in UML)
 Order.prototype.deleteProductById = function(idProduct) {
+    // (-)
     // this.__products.forEach(function(pid, index) {
-        // условие (index получить!, только найти, удалять на віходе цикла)
-    //     pid.splice(this.__products.indexOf(idProduct))      //# undefined ? (bind)
-    // })
+    //     //условие (index получить!, только найти, удалять на віходе цикла)
+    //     if(idProduct === pid.getId()) {
+    //         this.__products.splice(this.__products.indexOf(idProduct));     //# undefined ? (bind)
+    //     }
+    // });
 
+    // (+)
     for(var i=0; i< this.__products.length; i++) {
         var p = this.__products[i];
         if(idProduct === p.getId()) {
@@ -64,11 +68,11 @@ Order.prototype.deleteProductById = function(idProduct) {
 };
 
 // products (not in UML)
-Order.prototype.getProductNames= function() {
+Order.prototype.getProductNames = function() {
     return this.__products.map(function(product) {
         return product.getName();
     });
-}
+};
 
 /*
 

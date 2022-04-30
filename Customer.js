@@ -1,3 +1,5 @@
+'use strict';
+
 var Customer = function(id, name, phone, address, orders) {
     // this = {};
     User.call(this, id, name, phone, address); 
@@ -7,7 +9,7 @@ var Customer = function(id, name, phone, address, orders) {
     this.__orders = orders;
 
     // return this;
-}
+};
 
 // var Customer1 = function(id, name, phone, address, orders) {
 //     this.prototype = User.apply(this, arguments); 
@@ -21,7 +23,7 @@ Customer.prototype.constructor = User;                          // Define Constr
 Customer.prototype.addOrder = function(order) {               
     this.__orders.push(order);
     //this.__orders = order.slice();                             // copy array (!)  
-}
+};
 
 Customer.prototype.getOrders = function(order) {  
     // return this.__orders;
@@ -39,30 +41,28 @@ Customer.prototype.getOrderById = function(id) {
         if(this.__orders[i].getId() == id)
             return this.__orders[i].g;
     }
-}
+};
 
 Customer.prototype.deleteOrderById = function(id) {
-    // this.__orders.splice(id, 1);
-
     // works(+)
-    for(var i=0; i<this.__orders.length; i++) {
-        if(this.__orders[i].getId() == id) {
-            //this.__orders[i]..splice(id, 1)
-            this.__orders.splice(i, 1);
-        }
-    }
+    // for(var i=0; i<this.__orders.length; i++) {
+    //     if(this.__orders[i].getId() === id) {
+    //         this.__orders.splice(i, 1);
+    //     }
+    // }
 
     // (-)
     // this.__orders.forEach(function(el, ind) {
     //     if(el.getId() === id) {
-    //         this.__orders.splice(ind, 1);
+    //          this.__orders.splice(id, 1);
+    //         //this.__orders.splice(this.__orders.indexOf(el), 1);
     //     }
     // });
 
     //(+)
-    // this.__orders = this.__orders.filter(function(order) {
-    //     return order.getId() !== id;                           //# Uncaught TypeError: order.getId is not a function
-    // });
+    this.__orders = this.__orders.filter(function(order) {
+        return order.getId() !== id;                           //# Uncaught TypeError: order.getId is not a function
+    });
 
 
     // var newOrders = this.__orders.filter(function(value, index, arr) {
@@ -70,7 +70,7 @@ Customer.prototype.deleteOrderById = function(id) {
     // });
 
     // console.log(newOrders);
-}
+};
 
 // Передавть продукты!
 Customer.prototype.addProductToOrder = function(product, idOrder) {
@@ -92,15 +92,46 @@ Customer.prototype.addProductToOrder = function(product, idOrder) {
 // }
 Customer.prototype.addProductToOrderAsync = function(product, idOrder, callback) {
     setTimeout(function() {
-        this.__orders.forEach(function(ord) {
-            if(ord.getId() !== idOrder) {
-                ord.addProduct(product);
-            }
-        });
-        callback(this.__orders);
+        var error = null;
+        // if(this.__orders.getProductsAmount < 0) {
+        if(!product) {
+            error = new Error('Error with product in order.');
+        }
+        else {
+            this.__orders.forEach(function(ord) {
+                if(ord.getId() === idOrder) {
+                    ord.addProduct(product);
+                }
+                // response = x;
+            });
+        }
+        //callback(error, response);
+        callback(error, this.__orders);
     }.bind(this), 100);
-}
+};
+
+Customer.prototype.addProductToOrderPromise = function(product, idOrder) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            var error = null;
+            if(this.__orders.getProductsAmount < 0) {
+                error = new Error('Error with products in order.');
+                reject(error);
+            }
+            else {
+                this.__orders.forEach(function(ord) {
+                    if(ord.getId() === idOrder) {
+                        ord.addProduct(product);
+                    }
+                });
+            }
+            resolve();  
+        }, 1000);
+    });
+};
+
 
 Customer.prototype.deleteProductFromOrder = function(product, idOrder) {
-
-}
+    // const index = this.__orders.findIndex(order => order.getId() === idOrder);
+    // this.__orders.
+};

@@ -15,9 +15,9 @@ var categroyGroup3 = new Array(cat3);
 
 // 2) Adding Products
 // var prod1 = new Product(1, 'Product1', 100, new Array(1, 2));
-var prod1 = new Product(1, 'Product1', 10, categroyGroup1);
-var prod2 = new Product(2, 'Product2', 200, categroyGroup2);    // arr
-var prod3 = new Product(3, 'Product3', 300, categroyGroup3);
+var prod1 = new Product(1, 'P1', 10, categroyGroup1);
+var prod2 = new Product(2, 'P2', 200, categroyGroup2);    // arr
+var prod3 = new Product(3, 'P3', 300, categroyGroup3);
 //var prod4 = new Product(4, 'Product4', 400, cat1);              // check for Error
 //prod4.getCategoryNames();
 
@@ -95,38 +95,96 @@ console.log('Customer1 orders: ' + cust1.getOrders());
 console.log('Order2 Products: ' + order2.getProductsAmount() + '(' + order2.getProductNames() + ')');
 cust1.addProductToOrder(prod1, order2.getId());
 cust1.addProductToOrder(prod1, order2.getId());
-console.log('**Order2 Products: ' + order2.getProductsAmount() + '(' + order2.getProductNames() + ')');
+console.log('*Order2 Products(after adding 2 products): ' + order2.getProductsAmount() + '(' + order2.getProductNames() + ')');
 
-console.log('Order1 Products: ' + order1.getProductsAmount() + '(' + order2.getProductNames() + ')');
+console.log('Order1 Products: ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
 cust1.addProductToOrder(prod3, order1.getId());
-console.log('**Order1 Products: ' + order1.getProductsAmount() + '(' + order2.getProductNames() + ')');
+console.log('*Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
 
-// CBH
-cust1.addProductToOrderAsync(prod1, order1.getId(), function(orders) {
-	if(orders) {
-		console.log('#Order1 Products: ' + order1.getProductsAmount() + '(' + order2.getProductNames() + ')');
+// Async 1 CBH (#)
+cust1.addProductToOrderAsync(prod1, order1.getId(), function(err, orders) {
+	if(err) {
+		console.log(err);		
 	}
 	else {
-		console.log(new Error('#No orders'));
+		console.log('#Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
 	}
-	cust1.addProductToOrderAsync(prod1, order1.getId(), function(orders) {
-		if(orders) {
-			console.log('#Order1 Products: ' + order1.getProductsAmount() + '(' + order2.getProductNames() + ')');
+	cust1.addProductToOrderAsync(prod1, order1.getId(), function(err, orders) {
+		if(err) {
+			console.log(err);		
 		}
 		else {
-			console.log(new Error('#No orders'));
+			console.log('#Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
 		}
-	});
-	cust1.addProductToOrderAsync(prod1, order1.getId(), function(orders) {
-		if(orders) {
-			console.log('#Order1 Products: ' + order1.getProductsAmount() + '(' + order2.getProductNames() + ')');
-		}
-		else {
-			console.log(new Error('#No orders'));
-		}
+		cust1.addProductToOrderAsync(prod1, order1.getId(), function(err, orders) {
+			if(err) {
+				console.log(err);		
+			}
+			else {
+				console.log('#Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
+			}
+		});
 	});
 });
 
+// Async 2 Promise
+cust1.addProductToOrderPromise(prod1, order1.getId())
+	//.then(data => {
+	.then(() => {
+		console.log('#Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
+		return cust1.addProductToOrderPromise(prod1, order1.getId());
+	})
+	.then(() => {
+		console.log('#Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
+		return cust1.addProductToOrderPromise(prod1, order1.getId());
+	})
+	.then(() => {
+		console.log('#Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
+		return cust1.addProductToOrderPromise(prod1, order1.getId());
+	})
+	.catch(err => console.log(err))
+	.finally(() => console.log('Products are added to the order.'));
+
+// Async 3 async/await
+async function asyncAddProductToOrder() {
+	try {
+		await cust1.addProductToOrderPromise(prod1, order1.getId());
+		console.log('#Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
+		await cust1.addProductToOrderPromise(prod1, order1.getId());
+		console.log('#Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
+		await cust1.addProductToOrderPromise(prod1, order1.getId());
+		console.log('#Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
+	}
+	catch(error) {
+		console.log(error.message);
+	}
+}
+asyncAddProductToOrder();
+
+async function asyncAddProductToOrder2() {
+	try {
+		await cust1.addProductToOrderPromise(prod1, order1.getId());
+		console.log('#Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
+	}
+	catch(error) {
+		console.log(error.message);
+	}
+	try {
+		await cust1.addProductToOrderPromise(prod1, order1.getId());
+		console.log('#Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
+	}
+	catch(error) {
+		console.log(error.message);
+	}
+	try {
+		await cust1.addProductToOrderPromise(prod1, order1.getId());
+		console.log('#Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
+	}
+	catch(error) {
+		console.log(error.message);
+	}
+}
+asyncAddProductToOrder2();
 
 // *************************************
 // 4.1) Adding order
@@ -204,7 +262,7 @@ console.log(res1, res2, res3);
 function mulAsync(a, b, cb) {    	// AsF
 	setTimeout( function() {      	// to bind()!!!      
 		var res = a * b;            // this - понадобится для логики АФ
-		cb(res);                    // return через CB   
+		cb(res);                    // return через CB   (НЕТ ЯВН. return!!!)
 	}, 1000);
 }
 
