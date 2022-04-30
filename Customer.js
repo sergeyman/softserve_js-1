@@ -1,87 +1,106 @@
 var Customer = function(id, name, phone, address, orders) {
-//    this = {};
+    // this = {};
     User.call(this, id, name, phone, address); 
-    //this._cust-field-in-sign = cust-field-in-sign;
     
-    this._orders = [];
+    //this._cust-field-in-sign = cust-field-in-sign;
+    //this.__orders = [];
+    this.__orders = orders;
 
-    //return this;
+    // return this;
 }
 
 // var Customer1 = function(id, name, phone, address, orders) {
 //     this.prototype = User.apply(this, arguments); 
-//     this._orders = orders;
+//     this.__orders = orders;
 // }
 
 //Customer.prototype = new User;
 Customer.prototype = Object.create(User.prototype);             // Make an empty obj with User's like prototype/methods
 Customer.prototype.constructor = User;                          // Define Constructor (back)
 
-// ...
-
-Customer.prototype.getName = function() {               // adding (extending) function (method) to User.prototype
-    return this._name;
-}
-
-Customer.prototype.setName = function(name) {           // adding function (method) to User.prototype
-    //console.log(this);
-    this._name = name;
-}
-
-// Customer.prototype.getOrders = function() {
-//     return this._orders;
-// }
-
 Customer.prototype.addOrder = function(order) {               
-    this._orders.push(order);
-    //this._orders = order.slice();                             // copy array (!)  
+    this.__orders.push(order);
+    //this.__orders = order.slice();                             // copy array (!)  
 }
 
 Customer.prototype.getOrders = function(order) {  
-    return this._orders;
-}
+    // return this.__orders;
+    return this.__orders.map( ord => ord.getId() );
+};
 
 Customer.prototype.getOrderById = function(id) {
-    console.log('Orders: ' + this._orders);
 
-    return (this._orders.indexOf(id) != undefined) ? this._orders.indexOf(id) : null;
+    //return (this.__orders.indexOf(id) != undefined) ? this.__orders[indexOf(id)] : null;
 
-    // return this._orders.indexOf(id);
-    //return this._orders.indexOf(parseInt(id, 10));
+    // return this.__orders.indexOf(id);
+    //return this.__orders.indexOf(parseInt(id, 10));
 
-    // for(var i=0; i<this._orders.length; i++) {
-    //     if(this._orders[i] == id)
-    //         return i;
-    // }
+    for(var i=0; i<this.__orders.length; i++) {
+        if(this.__orders[i].getId() == id)
+            return this.__orders[i].g;
+    }
 }
 
 Customer.prototype.deleteOrderById = function(id) {
-    // this._orders.splice(id, 1);
+    // this.__orders.splice(id, 1);
 
-    // works(?)
-    // for(var i=0; i<this._orders.length; i++) {
-    //     if(this._orders[i] == id) {
-    //         this._orders.splice(id, 1)
-    //         break;
+    // works(+)
+    for(var i=0; i<this.__orders.length; i++) {
+        if(this.__orders[i].getId() == id) {
+            //this.__orders[i]..splice(id, 1)
+            this.__orders.splice(i, 1);
+        }
+    }
+
+    // (-)
+    // this.__orders.forEach(function(el, ind) {
+    //     if(el.getId() === id) {
+    //         this.__orders.splice(ind, 1);
     //     }
-    // }
+    // });
 
-    this._orders = this._orders.filter(function(order) {
-        return order.getOrderId() !== id;                           //# Uncaught TypeError: order.getOrderId is not a function
-    });
+    //(+)
+    // this.__orders = this.__orders.filter(function(order) {
+    //     return order.getId() !== id;                           //# Uncaught TypeError: order.getId is not a function
+    // });
 
 
-    // var newOrders = this._orders.filter(function(value, index, arr) {
+    // var newOrders = this.__orders.filter(function(value, index, arr) {
     //     return value = id;
     // });
 
     // console.log(newOrders);
 }
 
-Customer.prototype.addProductToOrder = function(idProduct, idOrder) {
+// Передавть продукты!
+Customer.prototype.addProductToOrder = function(product, idOrder) {
+    // this.__orders.push(idProduct, new Order(idOrder))
+    //this.___orders.getId(idOrder).addProduct(idProduct);
+    this.__orders.forEach(function(ord) {
+        //if(ord.getId() !== idOrder) {             // ?
+        if(ord.getId() === idOrder) {
+            ord.addProduct(product);
+        }
+    });
+};
 
+// function mulAsync(a, b, cb) {    	// AsF
+// 	setTimeout( function() {      	// to bind()!!!      
+// 		var res = a * b;            // this - понадобится для логики АФ
+// 		cb(res);                    // return через CB   (Запуск оброобтчика того, что получено)
+// 	}, 1000);
+// }
+Customer.prototype.addProductToOrderAsync = function(product, idOrder, callback) {
+    setTimeout(function() {
+        this.__orders.forEach(function(ord) {
+            if(ord.getId() !== idOrder) {
+                ord.addProduct(product);
+            }
+        });
+        callback(this.__orders);
+    }.bind(this), 100);
 }
 
-Customer.prototype.deleteProductToOrder = function(idProduct, idOrder) {
+Customer.prototype.deleteProductFromOrder = function(product, idOrder) {
 
 }

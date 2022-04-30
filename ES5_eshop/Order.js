@@ -21,21 +21,14 @@ Order.prototype.updateTime = function() {
 
 Order.prototype.getTotalPrice = function() {      
     var total = 0;
-    var initValue = 0;
-    
-    // var 1 (forEach) (+)
-    // this.__products.forEach(function (p, ind) {
-    //     total += p.getPrice();
-    // })
-    // return total;
+    // reduce()
+    this.__products.forEach(function (p, ind) {
+        total += p.getPrice();
+    })
+    return total;
 
-    // var 2 (ES5)      (+)
-    // var sum = nums.reduce(function(n1,n2) { return n1 + n2; });
-    // return total = this.__products.reduce( (acc, val) => acc + val )
-    total = this.__products.reduce( function(total, p) {
-        return total + p.getPrice();        
-    }, initValue);                  //* SYNTAXIS !!!
-    return total;    
+    // var 2 (ES6)
+    //return total = this.__products.reduce( (acc, val) => acc + val )
 };
 
 Order.prototype.addProduct = function(prod) {            
@@ -63,15 +56,3 @@ Order.prototype.deleteProductById = function(idProduct) {
     }
 };
 
-// products (not in UML)
-Order.prototype.getProductNames= function() {
-    return this.__products.map(function(product) {
-        return product.getName();
-    });
-}
-
-/*
-
-https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/Reduce
-
-*/

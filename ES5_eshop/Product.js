@@ -30,25 +30,16 @@ Product.prototype.setPrice = function(price) {
 Product.prototype.getCategoryNames = function() {               
     //return this.__categories;
     
-    // forEach (-)  ???
-    // this.__categories.forEach(function(category) {
+    // forEach (-)
+    // this.__categories.forEach(function(category, index, array) {
     //     //console.log(category.getName());
     //     return category.getName();
         
     // });
 
-    // ES5 map (+)          // return array (map)
-    return this.__categories.map(function(c) {
-        return c.getName();
-    });
-
-    // ES6 '=>'  (+)
-    //return this.__categories.map(c => c.getName());
+    // map (+)          // return array (map)
+    // '=>' ES6
+    return this.__categories.map(c => c.getName());
+    //this.__categories.map(c => {return c.getName(); });
 
 }
-
-
-/*
-https://developer.mozilla.org/ru/docs/Web/JavaScript/Reference/Global_Objects/Array/map
-
-*/

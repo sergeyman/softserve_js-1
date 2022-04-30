@@ -76,56 +76,14 @@ console.log(cust1);
 console.log('*Customer1 changed name: ' + cust1.getName());
 console.log('Customer1 orders: ' + cust1.getOrders());
 
-cust1.addOrder(order3);
-console.log('*Customer1 orders(after adding): ' + cust1.getOrders());
+cust1.addProductToOrder(prod3, order3.getId());
+console.log('*Customer1 orders: ' + cust1.getOrders());
 
-//console.log('Customer1 order3(?): ' + cust1.getOrderById(3));
 
-cust1.deleteOrderById(3);
-console.log('*Customer1 orders(after deleting): ' + cust1.getOrders());
 
-// cust1.deleteOrderById(2);
-// console.log('*Customer1 orders (after deleting): ' + cust1.getOrders());
 
-// cust1.deleteOrderById(1);
-// console.log('*Customer1 orders (after deleting): ' + cust1.getOrders());
 
-console.log('Customer1 orders: ' + cust1.getOrders());
 
-console.log('Order2 Products: ' + order2.getProductsAmount() + '(' + order2.getProductNames() + ')');
-cust1.addProductToOrder(prod1, order2.getId());
-cust1.addProductToOrder(prod1, order2.getId());
-console.log('**Order2 Products: ' + order2.getProductsAmount() + '(' + order2.getProductNames() + ')');
-
-console.log('Order1 Products: ' + order1.getProductsAmount() + '(' + order2.getProductNames() + ')');
-cust1.addProductToOrder(prod3, order1.getId());
-console.log('**Order1 Products: ' + order1.getProductsAmount() + '(' + order2.getProductNames() + ')');
-
-// CBH
-cust1.addProductToOrderAsync(prod1, order1.getId(), function(orders) {
-	if(orders) {
-		console.log('#Order1 Products: ' + order1.getProductsAmount() + '(' + order2.getProductNames() + ')');
-	}
-	else {
-		console.log(new Error('#No orders'));
-	}
-	cust1.addProductToOrderAsync(prod1, order1.getId(), function(orders) {
-		if(orders) {
-			console.log('#Order1 Products: ' + order1.getProductsAmount() + '(' + order2.getProductNames() + ')');
-		}
-		else {
-			console.log(new Error('#No orders'));
-		}
-	});
-	cust1.addProductToOrderAsync(prod1, order1.getId(), function(orders) {
-		if(orders) {
-			console.log('#Order1 Products: ' + order1.getProductsAmount() + '(' + order2.getProductNames() + ')');
-		}
-		else {
-			console.log(new Error('#No orders'));
-		}
-	});
-});
 
 
 // *************************************
@@ -237,37 +195,6 @@ mulAsync(
 	}
 );
 
-
-// CBH2 (Luchenko A.)
-function cbh2() {
-	const a = [2, 3, 4, 5];
-	console.log(a.join('-'));
-}
-
-cbh2();
-
-// Another
-// (function() { 
-// 	for(var i=0; i<10; i++) {
-//     	setTimeout(function() {
-// 			console.log(Math.ceil(Math.random() * 1000)); 
-// 		}, 100})
-// ();
-
-// var foo = function () {
-// 	for(var i=0; i<10; i++) {
-//     	setTimeout(function() {
-// 			console.log(Math.ceil(Math.random() * 1000)); 
-// 		}, 100);
-// };
-// foo();
-
-// (function() {
-// 	for(var i=0; i<10; i++) {
-//     	setTimeout(function() {
-// 			console.log(Math.ceil(Math.random() * 1000)); 
-// 		}, 100);
-// })();
 
 
 // ***
