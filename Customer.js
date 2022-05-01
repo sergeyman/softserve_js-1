@@ -25,21 +25,21 @@ Customer.prototype.addOrder = function(order) {
     //this.__orders = order.slice();                             // copy array (!)  
 };
 
-Customer.prototype.getOrders = function(order) {  
+// not in UML
+Customer.prototype.getOrders = function() {  
     // return this.__orders;
     return this.__orders.map( ord => ord.getId() );
 };
 
-Customer.prototype.getOrderById = function(id) {
-
+Customer.prototype.getOrderById = function(id) {    
     //return (this.__orders.indexOf(id) != undefined) ? this.__orders[indexOf(id)] : null;
 
     // return this.__orders.indexOf(id);
     //return this.__orders.indexOf(parseInt(id, 10));
-
     for(var i=0; i<this.__orders.length; i++) {
-        if(this.__orders[i].getId() == id)
-            return this.__orders[i].g;
+        if(this.__orders[i].getId() === id)
+            return this.__orders[i].getId();        // ??? id
+        // return (this.__orders[i].getId() === id) ? this.__orders[i].getId() : null;      // NO
     }
 };
 
@@ -134,4 +134,14 @@ Customer.prototype.addProductToOrderPromise = function(product, idOrder) {
 Customer.prototype.deleteProductFromOrder = function(product, idOrder) {
     // const index = this.__orders.findIndex(order => order.getId() === idOrder);
     // this.__orders.
+
+    // this.__orders = this.__orders.filter(function(order) {
+    //     return order.getId() !== id;                           //# Uncaught TypeError: order.getId is not a function
+    // });
+
+    this.__orders.forEach(function(order) {
+        if(order.getId() === idOrder) {
+            order.deleteProductById(product.getId());
+        }
+    });
 };

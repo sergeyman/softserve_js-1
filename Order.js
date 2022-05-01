@@ -2,7 +2,13 @@
 
 function Order(id) {           // Constructor
     this.__id = id;
-    this.__time = Date.now();
+    //this.__time = Date.now();
+    //this.__time = new Date().toString();                      // Sun May 01 2022 22:40:41 GMT+0300 
+    //this.__time = new Date().toLocaleDateString();            // 01.05.2022
+    //this.__time = new Date().toLocaleTimeString();            // 22:41:57
+    //this.__time = new Date().toLocaleString();                // 01.05.2022, 22:39:34
+    //this.__time = new Date().toISOString();                   // 2022-05-01T19:38:45.267Z
+    this.__time = new Date().toTimeString();                    // 22:43:11 GMT+0300 (Восточная Европа, летнее время)
     this.__products = [];
     //this.__products = products;
 }

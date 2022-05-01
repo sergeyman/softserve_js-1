@@ -28,22 +28,35 @@ Product.prototype.setPrice = function(price) {
 }
 
 Product.prototype.getCategoryNames = function() {               
-    //return this.__categories;
+    //return this.__categories;                           //> (2) [Category, Category]
     
-    // forEach (-)  ???
+    // forEach (-)  ??? using console.log() only
     // this.__categories.forEach(function(category) {
-    //     //console.log(category.getName());
-    //     return category.getName();
+    //     console.log(category.getName());                //undefined
+    //     //return category.getName();                   // undefined
         
     // });
 
-    // ES5 map (+)          // return array (map)
+    // ES5 map (+++)          // return *2!!!
     return this.__categories.map(function(c) {
         return c.getName();
     });
 
-    // ES6 '=>'  (+)
-    //return this.__categories.map(c => c.getName());
+    // ES6 '=>'  (+)         // return *2!!!
+    // return this.__categories.map(c => {
+    //     return c.getName();
+    // });
+
+    // ES6 forEach (-)     undefined          
+    // this.__categories.forEach(c => {
+    //     return c.getName();
+    // }); 
+
+    // ES6 forEach (-)     undefined          
+    // this.__categories.forEach((category) => {
+    //     console.log(category); 
+    // }); 
+
 
 }
 

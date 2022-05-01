@@ -97,6 +97,9 @@ cust1.addProductToOrder(prod1, order2.getId());
 cust1.addProductToOrder(prod1, order2.getId());
 console.log('*Order2 Products(after adding 2 products): ' + order2.getProductsAmount() + '(' + order2.getProductNames() + ')');
 
+cust1.deleteProductFromOrder(prod1, order2.getId());
+console.log('*Order2 Products(after deleting 1 product): ' + order2.getProductsAmount() + '(' + order2.getProductNames() + ')');
+
 console.log('Order1 Products: ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
 cust1.addProductToOrder(prod3, order1.getId());
 console.log('*Order1 Products(after adding 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');

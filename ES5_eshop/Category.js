@@ -1,6 +1,6 @@
 'use strict';
 
-function Category(id, name) {           // Constructor
+function Category(id, name) {
     this.__id = id;
     this.__name = name;
 }

@@ -1,81 +1,134 @@
+'use strict';
+
 var Customer = function(id, name, phone, address, orders) {
-    // this = {};
     User.call(this, id, name, phone, address); 
-    
-    //this._cust-field-in-sign = cust-field-in-sign;
-    //this.__orders = [];
-    this.___orders = orders;
 
-    // return this;
-}
+    this.__orders = orders;
+};
 
-// var Customer1 = function(id, name, phone, address, orders) {
+// var Customer = function(id, name, phone, address, orders) {
 //     this.prototype = User.apply(this, arguments); 
 //     this.__orders = orders;
 // }
 
-//Customer.prototype = new User;
-Customer.prototype = Object.create(User.prototype);             // Make an empty obj with User's like prototype/methods
-Customer.prototype.constructor = User;                          // Define Constructor (back)
+Customer.prototype = Object.create(User.prototype);             
+Customer.prototype.constructor = User;                          
 
 Customer.prototype.addOrder = function(order) {               
-    this.___orders.push(order);
-    //this.__orders = order.slice();                             // copy array (!)  
-}
-
-Customer.prototype.getOrders = function(order) {  
-    // return this.__orders;
-    return this.___orders.map( ord => ord.getId() );
+    this.__orders.push(order);
 };
 
-Customer.prototype.getOrderById = function(id) {
-    console.log('Orders: ' + this.___orders);
+// not in UML
+Customer.prototype.getOrders = function() {  
+    return this.__orders.map(function(order) {
+        return order.getId();
+    });
+};
 
-    return (this.___orders.indexOf(id) != undefined) ? this.___orders.indexOf(id) : null;
-
-    // return this.__orders.indexOf(id);
-    //return this.__orders.indexOf(parseInt(id, 10));
-
-    // for(var i=0; i<this.__orders.length; i++) {
-    //     if(this.__orders[i] == id)
-    //         return i;
-    // }
-}
+Customer.prototype.getOrderById = function(id) {    
+    for(var i=0; i<this.__orders.length; i++) {
+        if(this.__orders[i].getId() === id) {
+            return this.__orders[i].getId();        // ??? id     
+        }
+    }
+};
 
 Customer.prototype.deleteOrderById = function(id) {
-    // this.__orders.splice(id, 1);
-
-    // works(?)
+    // works(+)
     // for(var i=0; i<this.__orders.length; i++) {
-    //     if(this.__orders[i] == id) {
-    //         this.__orders.splice(id, 1)
-    //         break;
+    //     if(this.__orders[i].getId() === id) {
+    //         this.__orders.splice(i, 1);
     //     }
     // }
 
-    this.__orders = this.__orders.filter(function(order) {
-        return order.getId() !== id;                           //# Uncaught TypeError: order.getId is not a function
-    });
-
-
-    // var newOrders = this.__orders.filter(function(value, index, arr) {
-    //     return value = id;
+    // (-)
+    // this.__orders.forEach(function(el, ind) {
+    //     if(el.getId() === id) {
+    //          this.__orders.splice(id, 1);
+    //         //this.__orders.splice(this.__orders.indexOf(el), 1);
+    //     }
     // });
 
-    // console.log(newOrders);
-}
+    //(+)
+    this.__orders = this.__orders.filter(function(order) {
+        return order.getId() !== id;                           
+    });
+};
 
-// Передавть продуки!
 Customer.prototype.addProductToOrder = function(product, idOrder) {
-    // this.__orders.push(idProduct, new Order(idOrder))
-    //this.___orders.getId(idOrder).addProduct(idProduct);
-    this.___orders.forEach(function(ord) {
-        if(ord.getId() !== idOrder) {
-            ord.addProduct(product);
+    this.__orders.forEach(function(order) {
+        if(order.getId() === idOrder) {
+            order.addProduct(product);
         }
     });
 };
 
-Customer.prototype.deleteProductFromOrder = function(product, idOrder) {
+Customer.prototype.addProductToOrderAsync = function(product, idOrder, callback) {
+    setTimeout(function() {
+        var error = null;
+        // if(this.__orders.getProductsAmount < 0) {
+        if(!product) {
+            error = new Error('Error with product in order.');
+        }
+        else {
+            this.__orders.forEach(function(ord) {
+                if(ord.getId() === idOrder) {
+                    ord.addProduct(product);
+                }
+                // response = x;
+            });
+        }
+        //callback(error, response);
+        callback(error, this.__orders);
+    }.bind(this), 100);
+};
 
-}
+Customer.prototype.addProductToOrderPromise = function(product, idOrder) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            var error = null;
+            if(this.__orders.getProductsAmount < 0) {
+                error = new Error('Error with products in order.');
+                reject(error);
+            }
+            else {
+                this.__orders.forEach(function(ord) {
+                    if(ord.getId() === idOrder) {
+                        ord.addProduct(product);
+                    }
+                });
+            }
+            resolve();  
+        }, 1000);
+    });
+};
+
+
+Customer.prototype.deleteProductFromOrder = function(product, idOrder) {
+    this.__orders.forEach(function(order) {
+        if(order.getId() === idOrder) {
+            order.deleteProductById(product.getId());
+        }
+    });
+};
+
+Customer.prototype.deleteProductFromOrderPromise = function(product, idOrder) {
+    return new Promise((resolve, reject) => {
+        setTimeout(() => {
+            var error = null;
+            if(this.__orders.getProductsAmount < 0) {
+                error = new Error('Error with products in order.');
+                reject(error);
+            }
+            else {
+                this.__orders.forEach(function(ord) {
+                    if(ord.getId() === idOrder) {
+                        ord.deleteProductById(product.getId());
+                    }
+                });
+            }
+            resolve();  
+        }, 1000);
+    });
+};
+

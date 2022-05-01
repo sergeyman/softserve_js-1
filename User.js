@@ -8,9 +8,13 @@ function User(id, name, phone, address) {           // Constructor
     this._address = address || 'No address specified';
 }
 
+User.prototype.getId = function() {               
+    return this._id;
+};
+
 User.prototype.getName = function() {               // adding (extending) function (method) to User.prototype
     return this._name;
-}
+};
 
 User.prototype.setName = function(name) {           // adding function (method) to User.prototype
     //* check input parameter
@@ -22,12 +26,12 @@ User.prototype.setName = function(name) {           // adding function (method) 
     return false;    
     
     //this._name = name;
-}
+};
 
 User.prototype.getAddres = function() {               
     return this._address;
-}
+};
 
 User.prototype.getPhone = function() {               
     return this._phone;
-}
+};
