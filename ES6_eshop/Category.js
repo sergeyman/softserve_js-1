@@ -1,7 +1,7 @@
 'use strict';
 
 export default class Category {
-    coustructor(id, name) {
+    constructor(id, name) {
         this.__id = id;
         this.__name = name;
     }

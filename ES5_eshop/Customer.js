@@ -34,22 +34,6 @@ Customer.prototype.getOrderById = function(id) {
 };
 
 Customer.prototype.deleteOrderById = function(id) {
-    // works(+)
-    // for(var i=0; i<this.__orders.length; i++) {
-    //     if(this.__orders[i].getId() === id) {
-    //         this.__orders.splice(i, 1);
-    //     }
-    // }
-
-    // (-)
-    // this.__orders.forEach(function(el, ind) {
-    //     if(el.getId() === id) {
-    //          this.__orders.splice(id, 1);
-    //         //this.__orders.splice(this.__orders.indexOf(el), 1);
-    //     }
-    // });
-
-    //(+)
     this.__orders = this.__orders.filter(function(order) {
         return order.getId() !== id;                           
     });

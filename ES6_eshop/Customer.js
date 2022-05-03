@@ -10,25 +10,23 @@ export default class Customer extends User {
     }
     getOrders() {
         return this.__orders.map(function(order) {
-            return order.getId();
+            return order.id;
         });
     }
-    getOrderById() {
+    getOrderById(id) {
         for(var i=0; i<this.__orders.length; i++) {
-            if(this.__orders[i].getId() === id) {
-                return this.__orders[i].getId();        // ??? id    
+            if(this.__orders[i].id === id) {
+                return this.__orders[i].id;        // ??? id    
             }
         }
     }
     deleteOrderById(id) {
-        //(+)
-        this.__orders = this.__orders.filter(function(order) {
-            return order.getId() !== id;                           
-        });
+        const index = this.__orders.findIndex(order => order.id === id);        // ES6               
+        this.__orders.splice(index, 1);
     }
     addProductToOrder(product, idOrder) {
         this.__orders.forEach(function(order) {
-            if(order.getId() === idOrder) {
+            if(order.id === idOrder) {
                 order.addProduct(product);
             }
         });
@@ -42,7 +40,7 @@ export default class Customer extends User {
             }
             else {
                 this.__orders.forEach(function(ord) {
-                    if(ord.getId() === idOrder) {
+                    if(ord.id === idOrder) {
                         ord.addProduct(product);
                     }
                     // response = x;
@@ -62,7 +60,7 @@ export default class Customer extends User {
                 }
                 else {
                     this.__orders.forEach(function(ord) {
-                        if(ord.getId() === idOrder) {
+                        if(ord.id === idOrder) {
                             ord.addProduct(product);
                         }
                     });
@@ -73,8 +71,8 @@ export default class Customer extends User {
     }
     deleteProductFromOrder(product, idOrder) {
         this.__orders.forEach(function(order) {
-            if(order.getId() === idOrder) {
-                order.deleteProductById(product.getId());
+            if(order.id === idOrder) {
+                order.deleteProductById(product.id);
             }
         });
     }
@@ -88,8 +86,8 @@ export default class Customer extends User {
                 }
                 else {
                     this.__orders.forEach(function(ord) {
-                        if(ord.getId() === idOrder) {
-                            ord.deleteProductById(product.getId());
+                        if(ord.id === idOrder) {
+                            ord.deleteProductById(product.id);
                         }
                     });
                 }

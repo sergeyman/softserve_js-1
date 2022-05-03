@@ -504,4 +504,11 @@ mulAsync(
 *forEach() - всегда лучше (оптимизирован)
 	ES6: find(), findIndex()
 *В Моделях - не использовать console.log(), только в рендере 
+
+
+
+*** Features:
+1) TDD
+2) BDD
+3) some(), any(), search, sort
 */

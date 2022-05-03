@@ -64,13 +64,20 @@ Order.prototype.deleteProductById = function(idProduct) {
     //     }
     // });
 
-    // (+)
-    for(var i=0; i< this.__products.length; i++) {
-        var p = this.__products[i];
-        if(idProduct === p.getId()) {
-            this.__products.splice(this.__products.indexOf(i));
-        }
-    }
+    // (+/-) for()
+    // for(var i=0; i< this.__products.length; i++) {
+    //     var p = this.__products[i];
+    //     if(idProduct === p.getId()) {
+    //         this.__products.splice(this.__products.indexOf(i));
+    //     }
+    // }
+
+    // ES6 findIndex() (+)!
+    this.__products.splice(this.__products.findIndex(product => product.id === idProduct), 1);             
+
+    // ES6 findIndex() (+)!
+    // const index = this.__products.findIndex(product => product.id === idProduct);                       
+    // this.__products.splice(index, 1); 
 };
 
 // products (not in UML)
