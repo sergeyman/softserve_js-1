@@ -59,7 +59,7 @@ Customer.prototype.deleteOrderById = function(id) {
     //     }
     // });
 
-    //(+)
+    // ES5 (+)!
     this.__orders = this.__orders.filter(function(order) {
         return order.getId() !== id;                           //# Uncaught TypeError: order.getId is not a function
     });

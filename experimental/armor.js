@@ -19,9 +19,9 @@ class Armor {
     }
     get armor() {
         return `Your body is - ${this._body}, \nYour boots are - ${this._boots}`;	// `` - обратные кавычки	
-    
+    }
 }
 //export default Armor;
 
 //const armor = new Armor('body', 'boots'); 
-let armor = new Armor('body', 'boots');
+// let armor = new Armor('body', 'boots');

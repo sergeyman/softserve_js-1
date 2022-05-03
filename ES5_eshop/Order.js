@@ -52,21 +52,9 @@ Order.prototype.getProductsAmount = function() {
 
 // delete (not in UML)
 Order.prototype.deleteProductById = function(idProduct) {
-    // (-)
-    // this.__products.forEach(function(pid, index) {
-    //     //условие (index получить!, только найти, удалять на віходе цикла)
-    //     if(idProduct === pid.getId()) {
-    //         this.__products.splice(this.__products.indexOf(idProduct));     //# undefined ? (bind)
-    //     }
-    // });
-
-    // (+)
-    for(var i=0; i< this.__products.length; i++) {
-        var p = this.__products[i];
-        if(idProduct === p.getId()) {
-            this.__products.splice(this.__products.indexOf(i));
-        }
-    }
+    this.__products = this.__products.filter(function(product) {
+        return product.getId() !== idProduct;                           
+    });
 };
 
 // products (not in UML)

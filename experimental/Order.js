@@ -72,8 +72,13 @@ Order.prototype.deleteProductById = function(idProduct) {
     //     }
     // }
 
+    // ES5 filter()
+    this.__products = this.__products.filter(function(product) {
+        return product.getId() !== idProduct;                           
+    });
+
     // ES6 findIndex() (+)!
-    this.__products.splice(this.__products.findIndex(product => product.id === idProduct), 1);             
+    // this.__products.splice(this.__products.findIndex(product => product.id === idProduct), 1);             
 
     // ES6 findIndex() (+)!
     // const index = this.__products.findIndex(product => product.id === idProduct);                       
