@@ -74,23 +74,23 @@ cust1.setName(' Customer1ChangedName  ');                // change Customer1 nam
 
 console.log(cust1);
 console.log('*Customer1 changed name: ' + cust1.getName());
-console.log('Customer1 orders: ' + cust1.getOrders());
+console.log('Customer1 orders: ' + cust1.getOrdersId());
 
 cust1.addOrder(order3);
-console.log('*Customer1 orders(after adding): ' + cust1.getOrders());
+console.log('*Customer1 orders(after adding): ' + cust1.getOrdersId());
 
 //console.log('Customer1 order3(?): ' + cust1.getOrderById(3));
 
 cust1.deleteOrderById(3);
-console.log('*Customer1 orders(after deleting): ' + cust1.getOrders());
+console.log('*Customer1 orders(after deleting): ' + cust1.getOrdersId());
 
 // cust1.deleteOrderById(2);
-// console.log('*Customer1 orders (after deleting): ' + cust1.getOrders());
+// console.log('*Customer1 orders (after deleting): ' + cust1.getOrdersId());
 
 // cust1.deleteOrderById(1);
-// console.log('*Customer1 orders (after deleting): ' + cust1.getOrders());
+// console.log('*Customer1 orders (after deleting): ' + cust1.getOrdersId());
 
-console.log('Customer1 orders: ' + cust1.getOrders());
+console.log('Customer1 orders: ' + cust1.getOrdersId());
 
 console.log('Order2 Products: ' + order2.getProductsAmount() + '(' + order2.getProductNames() + ')');
 cust1.addProductToOrder(prod1, order2.getId());
@@ -193,7 +193,7 @@ asyncAddProductToOrder2();
 // 4.1) Adding order
 // var ord1 = new Order(10);
 // cust1.addOrder(ord1);
-// cust1.getOrders();
+// cust1.getOrdersId();
 // cust1.getOrderById(10);
 
 
@@ -208,9 +208,9 @@ asyncAddProductToOrder2();
 // console.log(cust1.getOrderById(3));      // # -1 (?)  >>>  this._orders = order.slice(); // copy array
 
 // // Deleting orders
-// console.log("\nOrders before deleting: " + cust1.getOrders());
+// console.log("\nOrders before deleting: " + cust1.getOrdersId());
 // //cust.deleteOrderById(1);                // 3 - not working (?)
-// console.log("Orders after deleting: " + cust1.getOrders());
+// console.log("Orders after deleting: " + cust1.getOrdersId());
 
 
 
@@ -504,7 +504,8 @@ mulAsync(
 *forEach() - всегда лучше (оптимизирован)
 	ES6: find(), findIndex()
 *В Моделях - не использовать console.log(), только в рендере 
-
+* sync: throw new Error()
+* async: new Error()
 
 
 *** Features:

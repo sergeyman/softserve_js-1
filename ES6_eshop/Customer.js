@@ -8,7 +8,7 @@ export default class Customer extends User {
     addOrder(order) {
         this.__orders.push(order);
     }
-    getOrders() {
+    getOrdersId() {
         return this.__orders.map(function(order) {
             return order.id;
         });
@@ -16,7 +16,7 @@ export default class Customer extends User {
     getOrderById(id) {
         for(var i=0; i<this.__orders.length; i++) {
             if(this.__orders[i].id === id) {
-                return this.__orders[i].id;        // ??? id    
+                return this.__orders[i]   
             }
         }
     }
@@ -31,25 +31,7 @@ export default class Customer extends User {
             }
         });
     }
-    addProductToOrderAsync(product, idOrder, callback) {
-        setTimeout(function() {
-            var error = null;
-            // if(this.__orders.getProductsAmount < 0) {
-            if(!product) {
-                error = new Error('Error with product in order.');
-            }
-            else {
-                this.__orders.forEach(function(ord) {
-                    if(ord.id === idOrder) {
-                        ord.addProduct(product);
-                    }
-                    // response = x;
-                });
-            }
-            //callback(error, response);
-            callback(error, this.__orders);
-        }.bind(this), 100);
-    }
+
     addProductToOrderPromise(product, idOrder) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
@@ -69,6 +51,7 @@ export default class Customer extends User {
             }, 1000);
         });
     }
+    
     deleteProductFromOrder(product, idOrder) {
         this.__orders.forEach(function(order) {
             if(order.id === idOrder) {

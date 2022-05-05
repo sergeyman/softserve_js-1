@@ -20,7 +20,9 @@ Product.prototype.getPrice = function() {
 };
 
 Product.prototype.setPrice = function(price) {  
-    if(typeof price !== 'number') throw new Error('#Price must have number type.');             
+    if (typeof price !== 'number') {
+        throw new Error('#Price must have number type.');    
+    }         
     this.__price = price;
 };
 

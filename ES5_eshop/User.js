@@ -17,13 +17,11 @@ User.prototype.getName = function() {
 };
 
 User.prototype.setName = function(name) {          
-    //* check input parameter
+    // check input parameter
     if(typeof name !== 'string') throw new Error('#Name must have string type.');
-    if(typeof name === 'string' && name.trim() !== '') {
+    if(name.trim() !== '') {
         this._name = name.trim();
     }
-    //* no checking parameters    
-    //this._name = name;
 };
 
 User.prototype.getAddres = function() {               

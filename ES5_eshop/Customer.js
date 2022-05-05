@@ -2,14 +2,8 @@
 
 var Customer = function(id, name, phone, address, orders) {
     User.call(this, id, name, phone, address); 
-
     this.__orders = orders;
 };
-
-// var Customer = function(id, name, phone, address, orders) {
-//     this.prototype = User.apply(this, arguments); 
-//     this.__orders = orders;
-// }
 
 Customer.prototype = Object.create(User.prototype);             
 Customer.prototype.constructor = User;                          
@@ -18,25 +12,26 @@ Customer.prototype.addOrder = function(order) {
     this.__orders.push(order);
 };
 
-// not in UML
-Customer.prototype.getOrders = function() {  
+Customer.prototype.getOrderById = function(id) {    
+    for(var i=0; i<this.__orders.length; i++) {
+        if(this.__orders[i].getId() === id) {
+            return this.__orders[i];                        
+        }
+    }
+};
+
+Customer.prototype.getOrdersId = function() {  
     return this.__orders.map(function(order) {
         return order.getId();
     });
 };
 
-Customer.prototype.getOrderById = function(id) {    
-    for(var i=0; i<this.__orders.length; i++) {
-        if(this.__orders[i].getId() === id) {
-            return this.__orders[i].getId();        // ??? id     
-        }
-    }
-};
-
 Customer.prototype.deleteOrderById = function(id) {
-    this.__orders = this.__orders.filter(function(order) {
-        return order.getId() !== id;                           
-    });
+    this.__orders.forEach(function(el, ind) {
+        if(el.getId() === id) {
+            this.__orders.splice(ind, 1);
+        }
+    }.bind(this));
 };
 
 Customer.prototype.addProductToOrder = function(product, idOrder) {
@@ -50,8 +45,10 @@ Customer.prototype.addProductToOrder = function(product, idOrder) {
 Customer.prototype.addProductToOrderAsync = function(product, idOrder, callback) {
     setTimeout(function() {
         var error = null;
-        // if(this.__orders.getProductsAmount < 0) {
-        if(!product) {
+        if(this.__orders.getProductsAmount < 0) {
+            error = new Error('Error with product\'s amount in order.');
+        }
+        else if(!product) {
             error = new Error('Error with product in order.');
         }
         else {
@@ -59,34 +56,11 @@ Customer.prototype.addProductToOrderAsync = function(product, idOrder, callback)
                 if(ord.getId() === idOrder) {
                     ord.addProduct(product);
                 }
-                // response = x;
             });
         }
-        //callback(error, response);
-        callback(error, this.__orders);
+        callback(error);
     }.bind(this), 100);
 };
-
-Customer.prototype.addProductToOrderPromise = function(product, idOrder) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            var error = null;
-            if(this.__orders.getProductsAmount < 0) {
-                error = new Error('Error with products in order.');
-                reject(error);
-            }
-            else {
-                this.__orders.forEach(function(ord) {
-                    if(ord.getId() === idOrder) {
-                        ord.addProduct(product);
-                    }
-                });
-            }
-            resolve();  
-        }, 1000);
-    });
-};
-
 
 Customer.prototype.deleteProductFromOrder = function(product, idOrder) {
     this.__orders.forEach(function(order) {
@@ -96,23 +70,22 @@ Customer.prototype.deleteProductFromOrder = function(product, idOrder) {
     });
 };
 
-Customer.prototype.deleteProductFromOrderPromise = function(product, idOrder) {
-    return new Promise((resolve, reject) => {
-        setTimeout(() => {
-            var error = null;
-            if(this.__orders.getProductsAmount < 0) {
-                error = new Error('Error with products in order.');
-                reject(error);
-            }
-            else {
-                this.__orders.forEach(function(ord) {
-                    if(ord.getId() === idOrder) {
-                        ord.deleteProductById(product.getId());
-                    }
-                });
-            }
-            resolve();  
-        }, 1000);
-    });
+Customer.prototype.deleteProductFromOrderAsync = function(product, idOrder, callback) {
+    setTimeout(function() {
+        var error = null;
+        if(this.__orders.getProductsAmount < 0) {
+            error = new Error('Error with product\'s amount in order.');
+        }
+        else if(!product) {
+            error = new Error('Error with product in order.');
+        }
+        else {
+            this.__orders.forEach(function(ord) {
+                if(ord.getId() === idOrder) {
+                    ord.deleteProductById(product.getId());
+                }
+            });
+        }
+        callback(error);
+    }.bind(this), 100);
 };
-

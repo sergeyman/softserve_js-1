@@ -1,5 +1,3 @@
-'use strict';
-
 export default class Product {
     constructor(id, name, price, categories) { 
         this.__id = id;
