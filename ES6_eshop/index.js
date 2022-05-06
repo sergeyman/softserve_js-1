@@ -119,34 +119,33 @@ console.log('\n***async***');
 // 	.finally(() => console.log('Products are added to the order.'));
 
 cust1.deleteProductFromOrderPromise(prod1, order1.id)
-	//.then(data => {
 	.then(() => {
-		console.log('#Order1 Products(after deleting 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
+		console.log('PD#Order1 Products(after deleting 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
 		return cust1.deleteProductFromOrderPromise(prod1, order1.id);
 	})
 	.then(() => {
-		console.log('#Order1 Products(after deleting 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
+		console.log('PD#Order1 Products(after deleting 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
 		return cust1.deleteProductFromOrderPromise(prod1, order1.id);
 	})
 	.then(() => {
-		console.log('#Order1 Products(after deleting 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
+		console.log('PD#Order1 Products(after deleting 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
 		return cust1.deleteProductFromOrderPromise(prod1, order1.id);
 	})
 	.catch(err => console.log(err))
-	.finally(() => console.log('Products are deleted from the order.'));
+	.finally(() => console.log('PD: Products are deleted from the order.'));
 
 // Async 3 async/await
 async function asyncAddProductToOrder() {
 	try {
 		await cust1.addProductToOrderPromise(prod1, order1.id);
-		console.log('#Order1 Products(after adding 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
+		console.log('A1A#Order1 Products(after adding 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
 		await cust1.addProductToOrderPromise(prod1, order1.id);
-		console.log('#Order1 Products(after adding 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
+		console.log('A1D#Order1 Products(after deleting 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
 		await cust1.addProductToOrderPromise(prod1, order1.id);
-		console.log('#Order1 Products(after adding 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
+		console.log('A1A#Order1 Products(after adding 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
 	}
 	catch(error) {
-		console.log(error.message);
+		throw err.message; 
 	}
 }
 asyncAddProductToOrder();
@@ -154,33 +153,24 @@ asyncAddProductToOrder();
 async function asyncAddProductToOrder2() {
 	try {
 		await cust1.addProductToOrderPromise(prod1, order1.id);
-		console.log('#Order1 Products(after adding 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
+		console.log('A2A#Order1 Products(after adding 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
+	}
+	catch(error) {
+		console.log(error.message);
+	}
+	try {
+		await cust1.deleteProductFromOrderPromise(prod1, order1.id);
+		console.log('A2D#Order1 Products(after deleting 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
 	}
 	catch(error) {
 		console.log(error.message);
 	}
 	try {
 		await cust1.addProductToOrderPromise(prod1, order1.id);
-		console.log('#Order1 Products(after adding 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
-	}
-	catch(error) {
-		console.log(error.message);
-	}
-	try {
-		await cust1.addProductToOrderPromise(prod1, order1.id);
-		console.log('#Order1 Products(after adding 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
+		console.log('A2A#Order1 Products(after adding 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
 	}
 	catch(error) {
 		console.log(error.message);
 	}
 }
 asyncAddProductToOrder2();
-
-
-/*
-1) using ES6 Module syntax
-2) var -> let, const
-3) get, set
-4) 
-
-*/

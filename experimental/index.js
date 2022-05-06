@@ -512,4 +512,11 @@ mulAsync(
 1) TDD
 2) BDD
 3) some(), any(), search, sort
+
+
+1) using ES6 Module syntax
+2) var -> let, const
+3) get, set
+4) 
+
 */
