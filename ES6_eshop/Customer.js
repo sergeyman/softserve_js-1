@@ -8,14 +8,14 @@ export default class Customer extends User {
     addOrder(order) {
         this.__orders.push(order);
     }
-    getOrdersId() {
+    get ordersId() {
         return this.__orders.map(function(order) {
             return order.id;
         });
     }
     getOrderById(id) {
         for(var i=0; i<this.__orders.length; i++) {
-            if(this.__orders[i].id === id) {
+            if (this.__orders[i].id === id) {
                 return this.__orders[i]   
             }
         }
@@ -26,7 +26,7 @@ export default class Customer extends User {
     }
     addProductToOrder(product, idOrder) {
         this.__orders.forEach(function(order) {
-            if(order.id === idOrder) {
+            if (order.id === idOrder) {
                 order.addProduct(product);
             }
         });
@@ -36,13 +36,13 @@ export default class Customer extends User {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 var error = null;
-                if(this.__orders.getProductsAmount < 0) {
+                if (this.__orders.getProductsAmount < 0) {
                     error = new Error('Error with products in order.');
                     reject(error);
                 }
                 else {
                     this.__orders.forEach(function(ord) {
-                        if(ord.id === idOrder) {
+                        if (ord.id === idOrder) {
                             ord.addProduct(product);
                         }
                     });
@@ -54,7 +54,7 @@ export default class Customer extends User {
     
     deleteProductFromOrder(product, idOrder) {
         this.__orders.forEach(function(order) {
-            if(order.id === idOrder) {
+            if (order.id === idOrder) {
                 order.deleteProductById(product.id);
             }
         });
@@ -63,13 +63,13 @@ export default class Customer extends User {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
                 var error = null;
-                if(this.__orders.getProductsAmount < 0) {
+                if (this.__orders.getProductsAmount < 0) {
                     error = new Error('Error with products in order.');
                     reject(error);
                 }
                 else {
                     this.__orders.forEach(function(ord) {
-                        if(ord.id === idOrder) {
+                        if (ord.id === idOrder) {
                             ord.deleteProductById(product.id);
                         }
                     });

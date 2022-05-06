@@ -13,7 +13,7 @@ export default class Order {
     updateTime() {
         this.__time = new Date();
     }
-    getTotalPrice() {
+    get totalPrice() {
         const total = this.__products.reduce((total, product) => {
             return total + product.price                    
         }, 0);      
@@ -23,14 +23,14 @@ export default class Order {
     addProduct(product) {
         this.__products.push(product); 
     }
-    getProductsAmount() {
+    get productsAmount() {
         return this.__products.length;
     }
     deleteProductById(idProduct) {
         const index = this.__products.findIndex(product => product.id === idProduct);                       // ES6
         this.__products.splice(index, 1);        
     }
-    getProductNames() {
+    get productNames() {
         return this.__products.map(product => {
             return product.name;
         });

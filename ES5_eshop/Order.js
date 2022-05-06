@@ -39,7 +39,7 @@ Order.prototype.getProductsAmount = function() {
 
 Order.prototype.deleteProductById = function(id) {
     this.__products.forEach(function(product, ind) {
-        if(product.getId() === id) {
+        if (product.getId() === id) {
             this.__products.splice(ind, 1);
         }
     }.bind(this));

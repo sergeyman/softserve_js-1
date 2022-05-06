@@ -19,8 +19,8 @@ export default class User {
     }
     set name(name) {
         // check input parameter
-        if(typeof name !== 'string') throw new Error('#Name must have string type.');
-        if(name.trim() !== '') {
+        if (typeof name !== 'string') throw new Error('#Name must have string type.');
+        if (name.trim() !== '') {
             this._name = name.trim();
         }
     }

@@ -15,10 +15,10 @@ export default class Product {
         return this.__price;
     }
     set price(price) {
-        if(typeof price !== 'number') throw new Error('#Price must have number type.');             
+        if (typeof price !== 'number') throw new Error('#Price must have number type.');             
         this.__price = price;
     }
-    getCategoryNames() {
+    get categoryNames() {
         return this.__categories.map(function(category) {
             return category.name;
         });
