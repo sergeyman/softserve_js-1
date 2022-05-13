@@ -1,7 +1,9 @@
 'use strict';
 
 function User(id, name, phone, address) {           
-    if(id === undefined) throw new Error('User constructor requires an id.');
+    if (id === undefined) {
+        throw new Error('User constructor requires an id.');
+    }
     this._id = id;
     this._name = name || 'No name specified';
     this._phone = phone || 'No phone specified';
@@ -16,10 +18,10 @@ User.prototype.getName = function() {
     return this._name;
 };
 
-User.prototype.setName = function(name) {          
+User.prototype.setName = function (name) {          
     // check input parameter
-    if(typeof name !== 'string') throw new Error('#Name must have string type.');
-    if(name.trim() !== '') {
+    if (typeof name !== 'string') throw new Error('#Name must have string type.');
+    if (name.trim() !== '') {
         this._name = name.trim();
     }
 };

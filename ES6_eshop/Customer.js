@@ -25,20 +25,21 @@ export default class Customer extends User {
         this.__orders.splice(index, 1);
     }
     addProductToOrder(product, idOrder) {
-        this.__orders.forEach(function(order) {
+        this.__orders.forEach((order) => {
             if (order.id === idOrder) {
                 order.addProduct(product);
             }
         });
     }
 
+    //addProductToOrderPromise(product, idOrder): Promise<void> {
     addProductToOrderPromise(product, idOrder) {
         return new Promise((resolve, reject) => {
             setTimeout(() => {
-                var error = null;
+                //var error = null;
                 if (this.__orders.getProductsAmount < 0) {
-                    error = new Error('Error with products in order.');
-                    reject(error);
+                    //error = new Error('Error with products in order.');
+                    reject(new Error('Error with products in order.'));
                 }
                 else {
                     this.__orders.forEach(function(ord) {

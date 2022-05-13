@@ -31,8 +31,6 @@ export default class Order {
         this.__products.splice(index, 1);        
     }
     get productNames() {
-        return this.__products.map(product => {
-            return product.name;
-        });
+        return this.__products.map(product => product.name );
     }
 }

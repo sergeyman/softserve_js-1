@@ -106,7 +106,7 @@ cust1.addProductToOrderAsync(prod1, order1.getId(), function(err) {
 		else {
 			console.log('#Order1 Products(after deleting 1 product): ' + order1.getProductsAmount() + '(' + order1.getProductNames() + ')');
 		}
-		cust1.addProductToOrderAsync(prod1, order1.getId(), function(err, orders) {
+		cust1.addProductToOrderAsync(prod1, order1.getId(), function(err) {
 			if(err) {
 				console.log(err);		
 			}

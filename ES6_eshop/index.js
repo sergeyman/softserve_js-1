@@ -150,12 +150,12 @@ async function asyncAddProductToOrder() {
 }
 asyncAddProductToOrder();
 
+//ASYNC
 async function asyncAddProductToOrder2() {
 	try {
 		await cust1.addProductToOrderPromise(prod1, order1.id);
 		console.log('A2A#Order1 Products(after adding 1 product): ' + order1.productsAmount + '(' + order1.productNames + ')');
-	}
-	catch(error) {
+	} catch(error) {
 		console.log(error.message);
 	}
 	try {

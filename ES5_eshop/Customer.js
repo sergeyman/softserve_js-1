@@ -13,7 +13,7 @@ Customer.prototype.addOrder = function(order) {
 };
 
 Customer.prototype.getOrderById = function(id) {    
-    for(var i=0; i<this.__orders.length; i++) {
+    for (var i = 0; i<this.__orders.length; i++) {
         if (this.__orders[i].getId() === id) {
             return this.__orders[i];                        
         }
@@ -21,12 +21,12 @@ Customer.prototype.getOrderById = function(id) {
 };
 
 Customer.prototype.getOrdersId = function() {  
-    return this.__orders.map(function(order) {
+    return this.__orders.map(function (order) {
         return order.getId();
     });
 };
 
-Customer.prototype.deleteOrderById = function(id) {
+Customer.prototype.deleteOrderById = function (id) {
     this.__orders.forEach(function(el, ind) {
         if (el.getId() === id) {
             this.__orders.splice(ind, 1);

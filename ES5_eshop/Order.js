@@ -2,7 +2,7 @@
 
 function Order(id) {          
     this.__id = id;
-    this.__time = new Date();        // 22:43:11 GMT+0300 (Восточная Европа, летнее время)
+    this.__time = new Date();        
     this.__products = [];
 }
 
@@ -11,7 +11,7 @@ Order.prototype.getId = function() {
 };
 
 Order.prototype.getTime = function() {          
-    return this.__time.toTimeString();        
+    return this.__time.toTimeString();    // 22:43:11 GMT+0300 (Восточная Европа, летнее время)    
 };
 
 Order.prototype.updateTime = function() {
@@ -19,14 +19,14 @@ Order.prototype.updateTime = function() {
 };
 
 Order.prototype.getTotalPrice = function() {      
-    var total = 0;
+    // var total = 0;
     var initValue = 0;
     
-    total = this.__products.reduce( function(total, p) {
+    return this.__products.reduce( function(total, p) {
         return total + p.getPrice();        
     }, initValue); 
 
-    return total;    
+    // return total;    
 };
 
 Order.prototype.addProduct = function(prod) {            
